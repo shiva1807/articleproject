@@ -64,6 +64,8 @@ app.get("/compose",function(req,res){
 })
 
 
+
+
 app.post("/compose", function(req,res){
 
    
@@ -81,10 +83,22 @@ app.post("/compose", function(req,res){
    res.redirect("/");
 });
 
+app.get("/afterlogin",function(req,res){
+    res.render("afterlogin");
+    
+})
+app.get("/login",function(req,res){
+    res.render("login");
+    
+})
+app.get("/register",function(req,res){
+    res.render("register");
+    
+})
 
 
-app.listen(3000 , function(){
-    console.log("Server is running at port 3000");
+app.listen(5000 , function(){
+    console.log("Server is running at port 5000");
 });
 
 
