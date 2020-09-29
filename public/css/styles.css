@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  align-content: center;
 }
 
 .navbar-brand{
@@ -13,10 +14,6 @@ html, body {
     color: white;
 }
 
-.footer-icons{
-    
-    margin: 2px 10px 2px;
-}
 
 .icons{
     text-align: center;
@@ -24,12 +21,6 @@ html, body {
 }
 
 
-.footer{
-  /* display: block;
-  position: relative; */
-  /* bottom: 0; */
-  background-color: #212529;;
-}
 
 .headline{
     text-align: left;
@@ -60,12 +51,16 @@ html, body {
 }
 
 .articleBlock{
-    margin: 10px 5px 10px;
+    padding: 3%;
 }
 
 .bodyBlock{
-    margin:10%;
+  margin-top: 20%;
+  margin-left: 10%;
+  margin-right: 10%;
 }
+
+
 .row{
     align-content: center;
 }
@@ -119,18 +114,11 @@ body {
   .loginBtn{
     margin-right: 2%;
   }
-.bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  .loginBlock{
+    width:200px;
+    position: absolute;
+    right: 0;
   }
 
 
-  @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-      font-size: 3.5rem;
-    }
-  }
+ 

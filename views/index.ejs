@@ -11,41 +11,30 @@
 </head>
 
 <body>
-
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  
+    <div class="row">
+      <nav class="navbar navbar-dark fixed-top bg-dark">
         <a class="navbar-brand" href="/">Reader's Point</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-      
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-          </ul>
-          <a href="/compose" class="loginBtn"><button class="btn btn-outline-success my-2 my-sm-0">Login</button></a>
-          <a href="/compose" class="loginBtn"><button class="btn btn-outline-success my-2 my-sm-0">Sign Up</button></a>
+       
+        <div class="loginBlock">
+          <a href="/login" class="loginBtn"><button class="btn btn-outline-success my-2 my-sm-0">Login</button></a>
+          <a href="/signup" class="loginBtn"><button class="btn btn-outline-success my-2 my-sm-0">Sign Up</button></a>
         </div>
-      </nav>
-    <main role="main">
-    <div class="jumbotron">
-        <div class="container">
-          <h1 class="display-3">I'm a Geek</h1>
-          <p>This is what I do, I read and know things!</p>
-        </div>
-      </div>
+     
+    </div>   
     
-        <div class="bodyBlock">
-        <div class="row">
-            <% articleObj.forEach(function(article){ %>
-                <div class="col-md-3 articleBlock">
-                    <h2><%= article.title %></h2>
-                    <p><%= article.content %></p>
-                    <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
-                  </div>
-            <%  }) %>
-        </div>
-        </div>
- </main>
+        
+          <div class="container bodyBlock">
+            <div class="row">
+                <% articleObj.forEach(function(article){ %>
+                    <div class="col-md-4 col-lg-4 col-sm-12 articleBlock">
+                        <h2><%= article.title %></h2>
+                        <p><%= article.content %></p>
+                        <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
+                      </div>
+                <%  }) %>
+            </div>
+          </div>
+        
+        
 <%- include("footer.ejs") %> 

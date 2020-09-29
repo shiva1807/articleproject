@@ -84,15 +84,30 @@ app.post("/compose", function(req,res){
 });
 
 app.get("/afterlogin",function(req,res){
-    res.render("afterlogin");
+    Article.find({},function(err,postedArticles){
+
+        if(postedArticles.length===0)
+        {
+            Article.insertMany(artArr,function(err){
+                if(err)
+                console.log(err);
+                else
+                console.log("Successfully saved");
+                res.redirect("/afterlogin");
+            });
+        }
+        else
+        res.render("afterlogin", { articleObjLog: postedArticles });
+    })
     
 })
+
 app.get("/login",function(req,res){
     res.render("login");
     
 })
-app.get("/register",function(req,res){
-    res.render("register");
+app.get("/signup",function(req,res){
+    res.render("signup");
     
 })
 
@@ -100,5 +115,3 @@ app.get("/register",function(req,res){
 app.listen(5000 , function(){
     console.log("Server is running at port 5000");
 });
-
-

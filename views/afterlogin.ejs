@@ -1,15 +1,9 @@
 <%- include("header.ejs") %> 
-<main role="main">
-<div class="jumbotron">
-    <div class="container">
-      <h1 class="display-3">I'm a Geek</h1>
-      <p>This is what I do, I read and know things!</p>
-    </div>
-  </div>
 
-    <div class="bodyBlock">
+
+    <div class="container bodyBlock">
     <div class="row">
-        <% articleObj.forEach(function(article){ %>
+        <% articleObjLog.forEach(function(article){ %>
             <div class="col-md-3 articleBlock">
                 <h2><%= article.title %></h2>
                 <p><%= article.content %></p>
@@ -18,5 +12,5 @@
         <%  }) %>
     </div>
     </div>
-</main>
+
 <%- include("footer.ejs") %> 
