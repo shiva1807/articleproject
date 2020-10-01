@@ -37,6 +37,12 @@ const art4=new Article({
 
 const artArr=[art1,art2,art3,art4];
 
+const userSchema={
+    username: String,
+    password: String
+};
+
+const User=mongoose.model("User", userSchema);
 
 
 app.get("/",function(req,res){
@@ -106,8 +112,53 @@ app.get("/login",function(req,res){
     res.render("login");
     
 })
+
+app.post("/login",function(req,res){
+    const username= req.body.email;
+    const password= req.body.password;
+
+    User.findOne({username: username}, function(err,foundUser){
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            if(foundUser){
+            if(foundUser.password===password)
+            {
+                res.redirect("/afterlogin");
+            }
+        }
+        }
+    })
+})
+
 app.get("/signup",function(req,res){
     res.render("signup");
+    
+})
+app.post("/signup",function(req,res){
+    const newUser=new User({
+        username: req.body.email,
+        password: req.body.password
+    });
+
+    newUser.save(function(err){
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            res.redirect("/afterlogin");
+        }
+    });
+});
+app.get("/myarticles",function(req,res){
+    res.render("myarticles");
+    
+})
+app.get("/articlefull",function(req,res){
+    res.render("articlefull");
     
 })
 
