@@ -86,7 +86,7 @@ app.post("/compose", function(req,res){
     });
 
   artNew.save();
-   res.redirect("/");
+   res.redirect("/afterlogin");
 });
 
 app.get("/afterlogin",function(req,res){
