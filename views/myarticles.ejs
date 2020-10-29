@@ -19,6 +19,22 @@
     </div>   
     
         
-          
+    <div class="container bodyBlock">
+        <div class="row">
+            <% articleObj.forEach(function(article){ %>
+               <% if(article.username===user){ %>
+
+                    <div class="col-md-4 col-lg-4 col-sm-12 articleBlock">
+                        <h2><%= article.title %></h2>
+                        <p><%= article.content %></p>
+                        <p><a class="btn btn-secondary" href="/post/<%= article._id %>" role="button">Read more &raquo;</a></p>
+                      </div>
+              <%  } %>
+                
+            <%  }) %>
+        </div>
+      </div>
+
+    
         
 <%- include("footer.ejs") %> 

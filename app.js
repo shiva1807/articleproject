@@ -1,6 +1,7 @@
 const express= require("express");
 const bodyParser= require("body-parser");
 const mongoose= require("mongoose");
+const _=require("lodash");
 
 const app=express();
 
@@ -12,27 +13,34 @@ mongoose.connect('mongodb://localhost:27017/articleDB', {useNewUrlParser: true, 
 
 const articleSchema= {
     title: String,
-    content: String
+    content: String,
+    username:String
 }
+
+var user='0';
 
 const Article=mongoose.model("Article",articleSchema);
 
 const art1=new Article({
-    title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    title: "Measures of variability and z-scores. Why, when and how to use them?",
+    content: "Why measures of variability matter? What can they offer us?Variability refers to how “spread out” or dispersed data is, and how different each score is from the other. …",
+    username:'0'
 });
 
 const art2=new Article({
     title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    username:'0'
 });
 const art3=new Article({
     title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    username:'0'
 });
 const art4=new Article({
     title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    username:'0'
 });
 
 const artArr=[art1,art2,art3,art4];
@@ -71,24 +79,6 @@ app.get("/compose",function(req,res){
 
 
 
-
-app.post("/compose", function(req,res){
-
-   
-    var a ={
-        newHeadline: req.body.headline,
-        newArticle: req.body.articleContent
-    }
-    
-    const artNew= new Article({
-        title: a.newHeadline,
-        content:a.newArticle
-    });
-
-  artNew.save();
-   res.redirect("/afterlogin");
-});
-
 app.get("/afterlogin",function(req,res){
     Article.find({},function(err,postedArticles){
 
@@ -125,9 +115,16 @@ app.post("/login",function(req,res){
         else{
             if(foundUser){
             if(foundUser.password===password)
-            {
+            {   user=foundUser._id;
+                console.log(user);
                 res.redirect("/afterlogin");
             }
+            else{
+                res.send("Login Failed");
+            }
+        }
+        else{
+            res.send("Login Failed");
         }
         }
     })
@@ -143,22 +140,70 @@ app.post("/signup",function(req,res){
         password: req.body.password
     });
 
-    newUser.save(function(err){
+    newUser.save(function(err,newuser){
         if(err)
         {
             console.log(err);
         }
         else{
+            user=newuser._id;
+            console.log(user);
             res.redirect("/afterlogin");
         }
     });
 });
-app.get("/myarticles",function(req,res){
-    res.render("myarticles");
+
+
+app.post("/compose", function(req,res){
+
+   
+    var a ={
+        newHeadline: req.body.headline,
+        newArticle: req.body.articleContent,
+        writtenBy:user
+    }
     
-})
-app.get("/articlefull",function(req,res){
-    res.render("articlefull");
+    const artNew= new Article({
+        title: a.newHeadline,
+        content:a.newArticle,
+        username:a.writtenBy
+    });
+    
+  artNew.save();
+   res.redirect("/afterlogin");
+});
+
+app.get("/myarticles",function(req,res){
+    Article.find({},function(err,postedArticle){
+
+        
+                if(err)
+                console.log(err);
+                else
+                res.render("myarticles", {articleObj: postedArticle, user:user});
+    });
+    
+});
+
+
+app.get("/post/:headline",function(req,res){
+    var id=req.params.headline;
+    Article.findById(id, function(err,foundUser){
+        if(err)
+        {
+            console.log(err);
+        }
+        else{
+            res.render("post",{
+                title:foundUser.title,
+                content:foundUser.content
+            })
+        }
+        
+    });
+
+
+
     
 })
 
