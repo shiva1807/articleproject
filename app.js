@@ -2,6 +2,7 @@ const express= require("express");
 const bodyParser= require("body-parser");
 const mongoose= require("mongoose");
 const _=require("lodash");
+const { method } = require("lodash");
 
 const app=express();
 
@@ -22,30 +23,30 @@ var user='0';
 const Article=mongoose.model("Article",articleSchema);
 
 const art1=new Article({
-    title: "Measures of variability and z-scores. Why, when and how to use them?",
-    content: "Why measures of variability matter? What can they offer us?Variability refers to how “spread out” or dispersed data is, and how different each score is from the other. …",
+    title: "VOLCANIC CO2 EMISSIONS TRIGGERED TRIASSIC EXTINCTION",
+    content: "Volcanic emissions played a direct role in the extreme climate change that led to the extinction of almost half of all species at the end of the Triassic period 201 million year ago, according to a new study.",
     username:'0'
 });
 
 const art2=new Article({
-    title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    title: "NEW MODEL COULD EXPLAIN ICY BLAST FROM JUPITER’S MOON",
+    content: "On Europa, powerful eruptions may spew into space, raising questions among hopeful astrobiologists on Earth: What would blast out from miles-high plumes? Could they contain signs of extraterrestrial life? And where in Europa would they originate?",
     username:'0'
 });
 const art3=new Article({
-    title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    title: "MASS EXTINCTIONS HAPPEN EVERY 27 MILLION YEARS",
+    content: "The cycle of mass extinctions of land-dwellers—including amphibians, reptiles, mammals, and birds—coincide with previously reported mass extinctions of ocean life, the researchers report.",
     username:'0'
 });
 const art4=new Article({
-    title: "Headline",
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    title: "TINY FOX BONES ARE CLUES TO HUMAN EVOLUTION",
+    content: "Nearly two decades ago, a small-bodied “human-like” fossil, Homo floresiensis, was discovered on an island in Indonesia. Some scientists have said the find, now nicknamed “Hobbit,” is representative of a human ancestor who developed dwarfed features after living on the island. ",
     username:'0'
 });
 
 const artArr=[art1,art2,art3,art4];
 
-const userSchema={
+const userSchema = {
     username: String,
     password: String
 };
@@ -202,10 +203,20 @@ app.get("/post/:headline",function(req,res){
         
     });
 
-
-
-    
 })
+
+app.get('/delete/:id', function(req, res) {
+    var id=req.params.id;
+    Article.findByIdAndDelete(id, function (err, deletedArticle) {
+       if(err){
+           console.log(err);
+       }
+       else{
+        res.redirect("/afterlogin"); 
+       }
+              
+     });
+});
 
 
 app.listen(5000 , function(){

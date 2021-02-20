@@ -7,7 +7,8 @@
             <div class="col-md-3 articleBlock">
                 <h2><%= article.title %></h2>
                 <p><%= article.content %></p>
-                <p><a class="btn btn-secondary" href="/post/<%= article._id %>" role="button">Read More &raquo;</a></p>
+                    <a class="btn btn-danger" href="/delete/<%= article._id %>" role="button">Delete</a>
+                  
               </div>
         <%  }) %>
     </div>
